@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class EmployeeDTO {
+
     private String emplID;
     private String namePrefix;
     private String firstName;
@@ -70,5 +71,26 @@ public class EmployeeDTO {
 
     public Float getSalary() {
         return salary;
+    }
+
+    public boolean isPrefixValid() {
+
+        return false;
+    }
+
+    public boolean isDateOfBirthValid() {
+        return false;
+    }
+
+    public boolean isDateOfJoiningValid() {
+        return false;
+    }
+
+    public boolean isSalaryValid() {
+        return false;
+    }
+
+    public boolean isGenderValid() {
+        return false;
     }
 }
