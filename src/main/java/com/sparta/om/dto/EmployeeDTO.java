@@ -93,4 +93,9 @@ public class EmployeeDTO {
     public boolean isGenderValid() {
         return false;
     }
+    public boolean isRecordValid(){
+
+        return isGenderValid() && isDateOfBirthValid() && isDateOfJoiningValid() && isPrefixValid() && isPrefixValid();
+    }
 }
+
