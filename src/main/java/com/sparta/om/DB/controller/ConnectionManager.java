@@ -11,8 +11,8 @@ public class ConnectionManager {
 
     public static Connection connectToDB() {
         String url = PropertiesLoader.getProperty("url");
-        String username = PropertiesLoader.getProperty("userName");
-        String password = PropertiesLoader.getProperty("passWord");
+        String username = PropertiesLoader.getProperty("username");
+        String password = PropertiesLoader.getProperty("password");
 
         try {
             postGresConnection = DriverManager.getConnection(url, username, password);

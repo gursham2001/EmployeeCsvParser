@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class PropertiesLoader {
-
     public static String getProperty(String key) {
         Properties properties = new Properties();
         try {
@@ -15,5 +14,4 @@ public class PropertiesLoader {
         }
         return properties.getProperty(key);
     }
-
 }

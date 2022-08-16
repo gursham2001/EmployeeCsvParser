@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class UserDAO {
-
     private final Connection postgresConnection;
 
     private Statement statement;
