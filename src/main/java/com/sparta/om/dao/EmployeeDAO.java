@@ -14,7 +14,6 @@ public class EmployeeDAO {
     private static ArrayList<EmployeeDTO> employees = new ArrayList<>();
     private static ArrayList<EmployeeDTO> corruptedEmployees = new ArrayList<>();
     private static BufferedReader bufferedReader;
-
     public static ArrayList<EmployeeDTO> PopulateArray(String filename) {
         try {
             var fileReader = new FileReader("src/main/resources/EmployeeRecords.csv");
@@ -22,14 +21,12 @@ public class EmployeeDAO {
             bufferedReader.readLine();
             for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
                 String[] records = line.split(",");
-
                 EmployeeDTO employeeDTO = new EmployeeDTO(records);
-                if(employeeDTO.isRecordValid()){
-                employees.add(employeeDTO);
-                }else{ corruptedEmployees.add(employeeDTO);
-
+                if (employeeDTO.isRecordValid()) {
+                    employees.add(employeeDTO);
+                } else {
+                    corruptedEmployees.add(employeeDTO);
                 }
-
             }
             System.out.println(employees.get(1).toString());
         } catch (IOException e) {
@@ -37,7 +34,6 @@ public class EmployeeDAO {
         }
         return employees;
     }
-
     public static ArrayList<EmployeeDTO> getEmployees() {
         return employees;
     }
