@@ -11,8 +11,11 @@ import java.util.Arrays;
 //Data Access Object
 //CRUD
 public class EmployeeDAO {
+
     private static ArrayList<EmployeeDTO> employees = new ArrayList<>();
+    private static ArrayList<EmployeeDTO> corruptedEmployees = new ArrayList<>();
     private static BufferedReader bufferedReader;
+    
 
     public static ArrayList<EmployeeDTO> PopulateArray(String filename) {
         try {
@@ -22,8 +25,11 @@ public class EmployeeDAO {
             for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
                 String[] records = line.split(",");
                 EmployeeDTO employeeDTO = new EmployeeDTO(records);
-                employees.add(employeeDTO);
-
+                if (employeeDTO.isRecordValid()) {
+                    employees.add(employeeDTO);
+                } else {
+                    corruptedEmployees.add(employeeDTO);
+                }
             }
             System.out.println(employees.get(1).toString());
         } catch (IOException e) {
@@ -31,7 +37,6 @@ public class EmployeeDAO {
         }
         return employees;
     }
-
     public static ArrayList<EmployeeDTO> getEmployees() {
         return employees;
     }
