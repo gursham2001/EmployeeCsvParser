@@ -6,6 +6,8 @@ package com.sparta.om.dto;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class EmployeeDTO {
 
@@ -74,7 +76,16 @@ public class EmployeeDTO {
     }
 
     public boolean isPrefixValid() {
-        return getNamePrefix() != null;
+        return getNamePrefix().equals("Mr.")
+                || getNamePrefix().equals("Mrs.")
+                || getNamePrefix().equals("Hon.")
+                || getNamePrefix().equals("Dr.")
+                || getNamePrefix().equals("Prof.")
+                || getNamePrefix().equals("Drs.")
+                || getNamePrefix().equals("Dr.")
+                || getNamePrefix().equals("Mr.")
+                || getNamePrefix().equals("Ms.")
+                || getNamePrefix().equals("Mr.");
     }
 
     public boolean isDateOfBirthValid() {
