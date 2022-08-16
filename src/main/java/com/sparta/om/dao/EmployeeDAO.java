@@ -11,9 +11,11 @@ import java.util.Arrays;
 //Data Access Object
 //CRUD
 public class EmployeeDAO {
+
     private static ArrayList<EmployeeDTO> employees = new ArrayList<>();
     private static ArrayList<EmployeeDTO> corruptedEmployees = new ArrayList<>();
     private static BufferedReader bufferedReader;
+    
 
     public static ArrayList<EmployeeDTO> PopulateArray(String filename) {
         try {
