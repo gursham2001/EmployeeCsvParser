@@ -5,8 +5,11 @@ import com.sparta.om.dto.EmployeeDTO;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 //Data Access Object
 //CRUD
@@ -15,7 +18,6 @@ public class EmployeeDAO {
     private static ArrayList<EmployeeDTO> employees = new ArrayList<>();
     private static ArrayList<EmployeeDTO> corruptedEmployees = new ArrayList<>();
     private static BufferedReader bufferedReader;
-    
 
     public static ArrayList<EmployeeDTO> PopulateArray(String filename) {
         try {
@@ -40,4 +42,9 @@ public class EmployeeDAO {
     public static ArrayList<EmployeeDTO> getEmployees() {
         return employees;
     }
+//
+//    public static void employeeValidation(ArrayList<EmployeeDTO> employees) {
+//        PreparedStatement preparedStatement = postgresConnection
+//    }
+
 }

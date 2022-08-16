@@ -96,5 +96,11 @@ public class EmployeeDTO {
 
         return isGenderValid() && isDateOfBirthValid() && isDateOfJoiningValid() && isPrefixValid() && isPrefixValid();
     }
+
+    public String returnSQLReady() {
+        return getEmplID() + "," + getNamePrefix() + "," + getFirstName() + "," + getMiddleInitial() + ","
+                + getLastName() + "," + getGender() + "," + getEmail() + "," + getDateOfBirth()
+                + "," + getDateOfJoining() + "," + getSalary();
+    }
 }
 

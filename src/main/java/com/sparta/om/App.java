@@ -9,9 +9,10 @@ import java.sql.*;
 public class App 
 {
     public static void main(String[] args) {
-//        Connection postgresConnection = ConnectionManager.connectToDB();
-//        UserDAO userDAO = new UserDAO(postgresConnection);
-//
-//        userDAO.printAllUsers();
+        Connection postgresConnection = ConnectionManager.connectToDB();
+        UserDAO userDAO = new UserDAO(postgresConnection);
+
+        userDAO.insertUsersToTable("src/main/resources/EmployeeRecords.csv");
+
     }
 }
