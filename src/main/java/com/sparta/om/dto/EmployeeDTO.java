@@ -92,4 +92,9 @@ public class EmployeeDTO {
     public boolean isGenderValid() {
         return getGender().equals("M") || getGender().equals("F");
     }
+    public boolean isRecordValid(){
+
+        return isGenderValid() && isDateOfBirthValid() && isDateOfJoiningValid() && isPrefixValid() && isPrefixValid();
+    }
 }
+
