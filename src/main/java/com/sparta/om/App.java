@@ -11,5 +11,6 @@ public class App
     public static void main( String[] args )
     {
         EmployeeDAO.PopulateArray("src/main/resources/EmployeeRecords.csv");
+        EmployeeDAO.getEmployees().get(0).toString();
     }
 }

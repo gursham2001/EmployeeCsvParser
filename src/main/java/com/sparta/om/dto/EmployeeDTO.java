@@ -74,23 +74,22 @@ public class EmployeeDTO {
     }
 
     public boolean isPrefixValid() {
-
-        return false;
+        return getNamePrefix() != null;
     }
 
     public boolean isDateOfBirthValid() {
-        return false;
+        return getDateOfBirth().isBefore(LocalDate.now()) && getDateOfBirth().isBefore(getDateOfJoining()) ;
     }
 
     public boolean isDateOfJoiningValid() {
-        return false;
+        return getDateOfJoining().isBefore(LocalDate.now());
     }
 
     public boolean isSalaryValid() {
-        return false;
+        return getSalary() > 0;
     }
 
     public boolean isGenderValid() {
-        return false;
+        return getGender().equals("M") || getGender().equals("F");
     }
 }
