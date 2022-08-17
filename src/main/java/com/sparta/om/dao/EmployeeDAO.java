@@ -21,7 +21,7 @@ public class EmployeeDAO {
 
     public static ArrayList<EmployeeDTO> PopulateArray(String filename) {
         try {
-            var fileReader = new FileReader("src/main/resources/EmployeeRecords.csv");
+            var fileReader = new FileReader(filename);
             var bufferedReader = new BufferedReader(fileReader);
             bufferedReader.readLine();
             for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
@@ -33,18 +33,18 @@ public class EmployeeDAO {
                     corruptedEmployees.add(employeeDTO);
                 }
             }
-            System.out.println(employees.get(1).toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
         return employees;
     }
+
     public static ArrayList<EmployeeDTO> getEmployees() {
         return employees;
     }
-//
-//    public static void employeeValidation(ArrayList<EmployeeDTO> employees) {
-//        PreparedStatement preparedStatement = postgresConnection
-//    }
 
+    public static ArrayList<EmployeeDTO> getCorruptedEmployees() {
+        return corruptedEmployees;
+    }
+    
 }

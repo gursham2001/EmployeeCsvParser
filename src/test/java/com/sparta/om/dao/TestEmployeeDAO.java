@@ -39,29 +39,4 @@ public class TestEmployeeDAO {
         Assertions.assertEquals(LocalDate.parse("02/01/2008", DateTimeFormatter.ofPattern("M/d/uuuu")),firstEmployee.getDateOfJoining());
         Assertions.assertEquals(Float.valueOf("69294"),firstEmployee.getSalary());
     }
-
-    @Test
-    public void testNamePrefixIsValid(){
-        Assertions.assertTrue(firstEmployee.isPrefixValid());
-    }
-
-    @Test
-    public void testDateIsValid(){
-        Assertions.assertTrue(firstEmployee.isDateOfBirthValid());
-        Assertions.assertTrue(firstEmployee.isDateOfJoiningValid());
-    }
-
-    @Test
-    public void testSalaryIsValid(){
-        Assertions.assertTrue(firstEmployee.isSalaryValid());
-    }
-
-    @Test
-    public void testGenderIsValid(){
-        Assertions.assertTrue(firstEmployee.isGenderValid());
-    }
-
-
-
-
 }
