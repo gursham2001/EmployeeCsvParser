@@ -5,8 +5,11 @@ import com.sparta.om.dto.EmployeeDTO;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 //Data Access Object
 //CRUD
@@ -43,4 +46,5 @@ public class EmployeeDAO {
     public static ArrayList<EmployeeDTO> getCorruptedEmployees() {
         return corruptedEmployees;
     }
+    
 }

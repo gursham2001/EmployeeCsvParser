@@ -9,9 +9,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.lang.Integer.parseInt;
+
 public class EmployeeDTO {
 
-    private String emplID;
+    private int emplID;
     private String namePrefix;
     private String firstName;
     private String middleInitial;
@@ -20,10 +22,10 @@ public class EmployeeDTO {
     private String email;
     private LocalDate dateOfBirth;
     private LocalDate dateOfJoining;
-    private Float salary;
+    private int salary;
 
     public EmployeeDTO(String[] csvInput) {
-        this.emplID = csvInput[0];
+        this.emplID = parseInt(csvInput[0]);
         this.namePrefix = csvInput[1];
         this.firstName = csvInput[2];
         this.middleInitial = csvInput[3];
@@ -32,10 +34,10 @@ public class EmployeeDTO {
         this.email = csvInput[6];
         this.dateOfBirth = LocalDate.parse(csvInput[7], DateTimeFormatter.ofPattern("M/d/uuuu"));
         this.dateOfJoining = LocalDate.parse(csvInput[8], DateTimeFormatter.ofPattern("M/d/uuuu"));
-        this.salary = Float.valueOf(csvInput[9]);
+        this.salary = parseInt(csvInput[9]);
     }
 
-    public String getEmplID() {
+    public int getEmplID() {
         return emplID;
     }
 
@@ -67,11 +69,12 @@ public class EmployeeDTO {
         return dateOfBirth;
     }
 
+
     public LocalDate getDateOfJoining() {
         return dateOfJoining;
     }
 
-    public Float getSalary() {
+    public int getSalary() {
         return salary;
     }
 
@@ -106,6 +109,28 @@ public class EmployeeDTO {
     public boolean isRecordValid(){
 
         return isGenderValid() && isDateOfBirthValid() && isDateOfJoiningValid() && isPrefixValid() && isPrefixValid();
+    }
+
+    public String returnSQLReady() {
+        return getEmplID() + "," + getNamePrefix() + "," + getFirstName() + "," + getMiddleInitial() + ","
+                + getLastName() + "," + getGender() + "," + getEmail() + "," + getDateOfBirth()
+                + "," + getDateOfJoining() + "," + getSalary();
+    }
+
+    @Override
+    public String toString() {
+        return "EmployeeDTO{" +
+                "emplID='" + emplID + '\'' +
+                ", namePrefix='" + namePrefix + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", middleInitial='" + middleInitial + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", email='" + email + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", dateOfJoining=" + dateOfJoining +
+                ", salary=" + salary +
+                '}';
     }
 }
 
