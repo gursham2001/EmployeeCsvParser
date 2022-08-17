@@ -7,6 +7,8 @@ package com.sparta.om.dto;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static java.lang.Integer.parseInt;
+
 public class EmployeeDTO {
 
     private String emplID;
@@ -18,7 +20,7 @@ public class EmployeeDTO {
     private String email;
     private LocalDate dateOfBirth;
     private LocalDate dateOfJoining;
-    private Float salary;
+    private int salary;
 
     public EmployeeDTO(String[] csvInput) {
         this.emplID = csvInput[0];
@@ -30,7 +32,7 @@ public class EmployeeDTO {
         this.email = csvInput[6];
         this.dateOfBirth = LocalDate.parse(csvInput[7], DateTimeFormatter.ofPattern("M/d/uuuu"));
         this.dateOfJoining = LocalDate.parse(csvInput[8], DateTimeFormatter.ofPattern("M/d/uuuu"));
-        this.salary = Float.valueOf(csvInput[9]);
+        this.salary = parseInt(csvInput[9]);
     }
 
     public String getEmplID() {
@@ -65,11 +67,12 @@ public class EmployeeDTO {
         return dateOfBirth;
     }
 
+
     public LocalDate getDateOfJoining() {
         return dateOfJoining;
     }
 
-    public Float getSalary() {
+    public int getSalary() {
         return salary;
     }
 

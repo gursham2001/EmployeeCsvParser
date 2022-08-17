@@ -6,6 +6,8 @@ import com.sparta.om.dto.EmployeeDTO;
 import java.sql.*;
 import java.util.ArrayList;
 
+import static com.sparta.om.dto.util.Utilities.*;
+
 public class UserDAO {
     private final Connection postgresConnection;
 
@@ -38,7 +40,6 @@ public class UserDAO {
         for (int i = 0; i < validatedEmployees.size(); i++){
             EmployeeDTO record = validatedEmployees.get(i);
             System.out.println(record.returnSQLReady());
-
                 // change 10 to current count
                 try {
                     PreparedStatement preparedStatement = postgresConnection.prepareStatement(SQLQueries.INSERT_INTO_TABLE);
@@ -49,11 +50,9 @@ public class UserDAO {
                     preparedStatement.setString(5,record.getLastName());
                     preparedStatement.setString(6,record.getGender());
                     preparedStatement.setString(7,record.getEmail());
-                    preparedStatement.setDate(8,record.getDateOfBirth());
-                    preparedStatement.setDate(9,record.getDateOfJoining());
-                    preparedStatement.setInt(9,record.getSalary());
-
-
+                    preparedStatement.setString(8,DateConverter(record.getDateOfBirth()));
+                    preparedStatement.setString(9,DateConverter(record.getDateOfJoining()));
+                    preparedStatement.setInt(10,record.getSalary());
 
                 } catch (SQLException e) {
                     e.printStackTrace();

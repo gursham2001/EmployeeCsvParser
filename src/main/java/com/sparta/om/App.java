@@ -15,10 +15,9 @@ public class App
         Connection postgresConnection = ConnectionManager.connectToDB();
         UserDAO userDAO = new UserDAO(postgresConnection);
         ArrayList<EmployeeDTO> employees = EmployeeDAO.PopulateArray("src/main/resources/EmployeeRecords.csv");
-
         System.out.println(employees.get(0).toString());
 
-        //userDAO.insertUsersToTable("src/main/resources/EmployeeRecords.csv");
+        userDAO.insertUsersToTable("src/main/resources/EmployeeRecords.csv");
 
     }
 }
