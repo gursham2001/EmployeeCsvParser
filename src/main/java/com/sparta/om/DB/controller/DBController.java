@@ -40,7 +40,6 @@ public class DBController {
         for (int i = 0; i < validatedEmployees.size(); i++) {
             EmployeeDTO record = validatedEmployees.get(i);
             System.out.println(record.returnSQLReady());
-            // change 10 to current count
             try {
                 PreparedStatement preparedStatement = postgresConnection.prepareStatement(SQLQueries.INSERT_INTO_TABLE);
                 preparedStatement.setInt(1, record.getEmplID());
@@ -57,7 +56,6 @@ public class DBController {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
         }
     }
 

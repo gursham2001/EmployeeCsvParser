@@ -8,11 +8,6 @@ import java.time.format.DateTimeFormatter;
 public class Utilities {
 
     public static Date DateConverter(LocalDate date){
-//        System.out.println(date);
-//        String formattedDate = date.format(DateTimeFormatter.ofPattern("uuuu-MM-dd"));
-//        System.out.println(formattedDate);
-//        return formattedDate;
-        Date formattedDate = Date.valueOf(date); // Magic happens here!
-        return formattedDate;
+        return Date.valueOf(date);
     }
 }

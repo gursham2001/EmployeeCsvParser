@@ -23,7 +23,7 @@ public class EmployeeDTO {
     private int salary;
 
     public EmployeeDTO(String[] csvInput) {
-        this.emplID = Integer.parseInt(csvInput[0]);
+        this.emplID = parseInt(csvInput[0]);
         this.namePrefix = csvInput[1];
         this.firstName = csvInput[2];
         this.middleInitial = csvInput[3];
