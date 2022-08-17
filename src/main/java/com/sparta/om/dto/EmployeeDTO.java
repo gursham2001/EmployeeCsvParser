@@ -102,5 +102,21 @@ public class EmployeeDTO {
                 + getLastName() + "," + getGender() + "," + getEmail() + "," + getDateOfBirth()
                 + "," + getDateOfJoining() + "," + getSalary();
     }
+
+    @Override
+    public String toString() {
+        return "EmployeeDTO{" +
+                "emplID='" + emplID + '\'' +
+                ", namePrefix='" + namePrefix + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", middleInitial='" + middleInitial + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", email='" + email + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", dateOfJoining=" + dateOfJoining +
+                ", salary=" + salary +
+                '}';
+    }
 }
 

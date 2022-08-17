@@ -36,16 +36,29 @@ public class UserDAO {
     public void insertUsersToTable(String filename) {
         ArrayList<EmployeeDTO> validatedEmployees = EmployeeDAO.PopulateArray(filename);
         for (int i = 0; i < validatedEmployees.size(); i++){
-            EmployeeDTO records = validatedEmployees.get(i);
-            System.out.println(records.returnSQLReady());
-            for (int j = 1; j < 10; j++) {
+            EmployeeDTO record = validatedEmployees.get(i);
+            System.out.println(record.returnSQLReady());
+
                 // change 10 to current count
                 try {
                     PreparedStatement preparedStatement = postgresConnection.prepareStatement(SQLQueries.INSERT_INTO_TABLE);
+                    preparedStatement.setString(1,record.getEmplID());
+                    preparedStatement.setString(2,record.getNamePrefix());
+                    preparedStatement.setString(3,record.getFirstName());
+                    preparedStatement.setString(4,record.getMiddleInitial());
+                    preparedStatement.setString(5,record.getLastName());
+                    preparedStatement.setString(6,record.getGender());
+                    preparedStatement.setString(7,record.getEmail());
+                    preparedStatement.setDate(8,record.getDateOfBirth());
+                    preparedStatement.setDate(9,record.getDateOfJoining());
+                    preparedStatement.setInt(9,record.getSalary());
+
+
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-            }
+
         }
     }
 }
