@@ -11,7 +11,7 @@ import static java.lang.Integer.parseInt;
 
 public class EmployeeDTO {
 
-    private String emplID;
+    private int emplID;
     private String namePrefix;
     private String firstName;
     private String middleInitial;
@@ -23,7 +23,7 @@ public class EmployeeDTO {
     private int salary;
 
     public EmployeeDTO(String[] csvInput) {
-        this.emplID = csvInput[0];
+        this.emplID = Integer.parseInt(csvInput[0]);
         this.namePrefix = csvInput[1];
         this.firstName = csvInput[2];
         this.middleInitial = csvInput[3];
@@ -35,7 +35,7 @@ public class EmployeeDTO {
         this.salary = parseInt(csvInput[9]);
     }
 
-    public String getEmplID() {
+    public int getEmplID() {
         return emplID;
     }
 
