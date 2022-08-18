@@ -4,9 +4,11 @@ import com.sparta.om.DB.model.SQLQueries;
 import com.sparta.om.dao.EmployeeDAO;
 import com.sparta.om.dto.EmployeeDTO;
 import com.sparta.om.dto.util.Utilities;
+import jdk.swing.interop.SwingInterOpUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static com.sparta.om.dao.EmployeeDAO.corruptedEmployees;
 
@@ -94,5 +96,21 @@ public class DBController {
             e.printStackTrace();
         }
 
+    }
+    public boolean doesTableExist(){
+        PreparedStatement prepareStatement = null;
+        boolean result = false;
+        try {
+            prepareStatement = postgresConnection.prepareStatement(SQLQueries.CHECK_TABLE);
+
+            ResultSet resultSet = prepareStatement.executeQuery();
+            while(resultSet.next()) {
+               result = resultSet.getBoolean(1);
+            }
+           return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

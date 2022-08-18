@@ -18,13 +18,20 @@ public class Controller {
 
         switch(choice) {
             case 1:
-                System.out.println("Creating the Table...");
+
                 dbController.dropTable();
                 dbController.createTable();
+                System.out.println("Created the Table...");
                 break;
             case 2:
-                System.out.println("Inserting Employees ...");
-                dbController.insertUsersToTable(filename);
+
+                if(dbController.doesTableExist()) {
+                    dbController.insertUsersToTable(filename);
+                    System.out.println("Inserted Employees ...");
+
+                }else{
+                    System.out.println("Table does not exist");
+                }
                 break;
             case 3:
                 dbController.getEmployee(SelectedEmployee());
