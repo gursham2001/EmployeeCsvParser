@@ -17,5 +17,6 @@ public class DBLoader {
         dbController.createTable();
         dbController.insertUsersToTable("src/main/resources/EmployeeRecords.csv");
         //dbController.printAllUsers();
+        dbController.getEmployee( 953724);
     }
 }
