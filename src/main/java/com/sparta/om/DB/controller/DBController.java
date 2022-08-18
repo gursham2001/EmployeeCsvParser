@@ -8,6 +8,8 @@ import com.sparta.om.dto.util.Utilities;
 import java.sql.*;
 import java.util.ArrayList;
 
+import static com.sparta.om.dao.EmployeeDAO.corruptedEmployees;
+
 public class DBController {
     private final Connection postgresConnection;
 
@@ -39,7 +41,6 @@ public class DBController {
         ArrayList<EmployeeDTO> validatedEmployees = EmployeeDAO.PopulateArray(filename);
         for (int i = 0; i < validatedEmployees.size(); i++) {
             EmployeeDTO record = validatedEmployees.get(i);
-            System.out.println(record.returnSQLReady());
             try {
                 PreparedStatement preparedStatement = postgresConnection.prepareStatement(SQLQueries.INSERT_INTO_TABLE);
                 preparedStatement.setInt(1, record.getEmplID());

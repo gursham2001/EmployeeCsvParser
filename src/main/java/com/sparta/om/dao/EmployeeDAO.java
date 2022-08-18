@@ -16,7 +16,9 @@ import java.util.ArrayList;
 public class EmployeeDAO {
 
     private static ArrayList<EmployeeDTO> employees = new ArrayList<>();
-    private static ArrayList<EmployeeDTO> corruptedEmployees = new ArrayList<>();
+    private static ArrayList<Integer> employeeIDs = new ArrayList<>();
+    public static ArrayList<EmployeeDTO> corruptedEmployees = new ArrayList<>();
+    public static ArrayList<EmployeeDTO> duplicatedEmployees = new ArrayList<>();
     private static BufferedReader bufferedReader;
 
     public static ArrayList<EmployeeDTO> PopulateArray(String filename) {
@@ -28,7 +30,12 @@ public class EmployeeDAO {
                 String[] records = line.split(",");
                 EmployeeDTO employeeDTO = new EmployeeDTO(records);
                 if (employeeDTO.isRecordValid()) {
-                    employees.add(employeeDTO);
+                    if (employeeDTO.isDuplicate(employeeDTO, employeeIDs)) {
+                        duplicatedEmployees.add(employeeDTO);
+                    } else {
+                        employees.add(employeeDTO);
+                        employeeIDs.add(employeeDTO.getEmplID());
+                    }
                 } else {
                     corruptedEmployees.add(employeeDTO);
                 }
@@ -46,5 +53,8 @@ public class EmployeeDAO {
     public static ArrayList<EmployeeDTO> getCorruptedEmployees() {
         return corruptedEmployees;
     }
-    
+
+    public static ArrayList<EmployeeDTO> getDuplicatedEmployees() {
+        return duplicatedEmployees;
+    }
 }

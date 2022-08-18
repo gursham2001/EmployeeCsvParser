@@ -6,6 +6,8 @@ package com.sparta.om.dto;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -108,13 +110,7 @@ public class EmployeeDTO {
     }
     public boolean isRecordValid(){
 
-        return isGenderValid() && isDateOfBirthValid() && isDateOfJoiningValid() && isPrefixValid() && isPrefixValid();
-    }
-
-    public String returnSQLReady() {
-        return getEmplID() + "," + getNamePrefix() + "," + getFirstName() + "," + getMiddleInitial() + ","
-                + getLastName() + "," + getGender() + "," + getEmail() + "," + getDateOfBirth()
-                + "," + getDateOfJoining() + "," + getSalary();
+        return isGenderValid() && isDateOfBirthValid() && isDateOfJoiningValid() && isPrefixValid();
     }
 
     @Override
@@ -131,6 +127,10 @@ public class EmployeeDTO {
                 ", dateOfJoining=" + dateOfJoining +
                 ", salary=" + salary +
                 '}';
+    }
+
+    public boolean isDuplicate(EmployeeDTO employeeDTO, ArrayList<Integer> employeeIDs) {
+        return employeeIDs.contains(employeeDTO.getEmplID());
     }
 }
 
