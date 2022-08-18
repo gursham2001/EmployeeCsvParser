@@ -77,4 +77,22 @@ public class DBController {
             e.printStackTrace();
         }
     }
+    public void getEmployee(int id){
+        try {
+            PreparedStatement preparedStatement = postgresConnection.prepareStatement(SQLQueries.SELECT_INDIVIDUAL);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                System.out.print("ID: " + resultSet.getInt( 1)+ " \n");
+                System.out.print("Name: " + resultSet.getString(2) + " ");
+                System.out.print(resultSet.getString(3)+ " ");
+                System.out.print(resultSet.getString(4)+ " ");
+                System.out.print(resultSet.getString(5)+ " \n" );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
