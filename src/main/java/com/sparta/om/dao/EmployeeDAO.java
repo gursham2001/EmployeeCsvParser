@@ -38,7 +38,6 @@ public class EmployeeDAO {
                     }
                 } else {
                     corruptedEmployees.add(employeeDTO);
-                    employeeIDs.add(employeeDTO.getEmplID());
                 }
             }
         } catch (IOException e) {

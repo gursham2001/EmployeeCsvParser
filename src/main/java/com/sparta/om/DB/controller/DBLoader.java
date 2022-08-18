@@ -11,7 +11,7 @@ public class DBLoader {
         Connection postgresConnection = ConnectionManager.connectToDB();
         DBController dbController = new DBController(postgresConnection);
 
-        ArrayList<EmployeeDTO> employees = EmployeeDAO.PopulateArray("src/main/resources/EmployeeRecords.csv");
+        //ArrayList<EmployeeDTO> employees = EmployeeDAO.PopulateArray("src/main/resources/EmployeeRecordsTest.csv");
 
         dbController.dropTable();
         dbController.createTable();

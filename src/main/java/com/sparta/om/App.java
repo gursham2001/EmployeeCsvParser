@@ -14,6 +14,7 @@ public class App
     public static void main(String[] args) {
         DBLoader.start();
 
-        System.out.println("Corrupted employees ################## \n \n \n" + EmployeeDAO.getDuplicatedEmployees() + "\n FINISHED");
+        System.out.println("Normal Employees: " + EmployeeDAO.getEmployees().size() + "\n\nCorrupted employees: " + EmployeeDAO.getCorruptedEmployees().size() + " " + EmployeeDAO.getCorruptedEmployees()+
+                "\n\nDuplicated Employees: " +EmployeeDAO.getDuplicatedEmployees().size() + EmployeeDAO.getDuplicatedEmployees().get(50) + "\n FINISHED");
     }
 }
