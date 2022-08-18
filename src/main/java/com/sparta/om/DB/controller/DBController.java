@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import static com.sparta.om.dao.EmployeeDAO.corruptedEmployees;
+import static com.sparta.om.dao.EmployeeDAO.duplicatedEmployees;
 
 public class DBController {
     private final Connection postgresConnection;
@@ -39,6 +40,10 @@ public class DBController {
 
     public void insertUsersToTable(String filename) {
         ArrayList<EmployeeDTO> validatedEmployees = EmployeeDAO.PopulateArray(filename);
+        System.out.println("Valid employees count: " + validatedEmployees.size());
+        System.out.println("Corrupted employees count: " + corruptedEmployees.size());
+        System.out.println("Duplicated employees count: " + duplicatedEmployees.size());
+
         for (int i = 0; i < validatedEmployees.size(); i++) {
             EmployeeDTO record = validatedEmployees.get(i);
             try {
@@ -93,6 +98,22 @@ public class DBController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
+    public boolean doesTableExist(){
+        PreparedStatement prepareStatement = null;
+        boolean result = false;
+        try {
+            prepareStatement = postgresConnection.prepareStatement(SQLQueries.CHECK_TABLE);
+
+            ResultSet resultSet = prepareStatement.executeQuery();
+            while(resultSet.next()) {
+               result = resultSet.getBoolean(1);
+            }
+           return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
