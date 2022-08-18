@@ -13,9 +13,6 @@ import java.util.ArrayList;
 public class App 
 {
     public static void main(String[] args) {
-
         ScannerInput.ScannerSort();
-//        System.out.println("Normal Employees: " + EmployeeDAO.getEmployees().size() + "\n\nCorrupted employees: " + EmployeeDAO.getCorruptedEmployees().size() + " " + EmployeeDAO.getCorruptedEmployees()+
-//                "\n\nDuplicated Employees: " +EmployeeDAO.getDuplicatedEmployees().size() + EmployeeDAO.getDuplicatedEmployees().get(50) + "\n FINISHED");
     }
 }

@@ -48,8 +48,4 @@ public class Controller {
         int choice = myObj.nextInt();
         return choice;
     }
-
-
-
-
 }

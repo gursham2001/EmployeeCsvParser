@@ -63,7 +63,6 @@ public class DBController {
                 e.printStackTrace();
             }
         }
-
     }
 
     public void dropTable() {
