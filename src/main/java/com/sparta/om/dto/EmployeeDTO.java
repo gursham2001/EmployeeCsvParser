@@ -71,7 +71,6 @@ public class EmployeeDTO {
         return dateOfBirth;
     }
 
-
     public LocalDate getDateOfJoining() {
         return dateOfJoining;
     }
@@ -87,10 +86,7 @@ public class EmployeeDTO {
                 || getNamePrefix().equals("Dr.")
                 || getNamePrefix().equals("Prof.")
                 || getNamePrefix().equals("Drs.")
-                || getNamePrefix().equals("Dr.")
-                || getNamePrefix().equals("Mr.")
-                || getNamePrefix().equals("Ms.")
-                || getNamePrefix().equals("Mr.");
+                || getNamePrefix().equals("Ms.");
     }
 
     public boolean isDateOfBirthValid() {

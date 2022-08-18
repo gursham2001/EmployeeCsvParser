@@ -4,13 +4,12 @@ import com.sparta.om.DB.model.SQLQueries;
 import com.sparta.om.dao.EmployeeDAO;
 import com.sparta.om.dto.EmployeeDTO;
 import com.sparta.om.dto.util.Utilities;
-import jdk.swing.interop.SwingInterOpUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static com.sparta.om.dao.EmployeeDAO.corruptedEmployees;
+import static com.sparta.om.dao.EmployeeDAO.duplicatedEmployees;
 
 public class DBController {
     private final Connection postgresConnection;
@@ -41,6 +40,10 @@ public class DBController {
 
     public void insertUsersToTable(String filename) {
         ArrayList<EmployeeDTO> validatedEmployees = EmployeeDAO.PopulateArray(filename);
+        System.out.println("Valid employees count: " + validatedEmployees.size());
+        System.out.println("Corrupted employees count: " + corruptedEmployees.size());
+        System.out.println("Duplicated employees count: " + duplicatedEmployees.size());
+
         for (int i = 0; i < validatedEmployees.size(); i++) {
             EmployeeDTO record = validatedEmployees.get(i);
             try {
@@ -60,6 +63,7 @@ public class DBController {
                 e.printStackTrace();
             }
         }
+
     }
 
     public void dropTable() {
@@ -95,8 +99,8 @@ public class DBController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
+
     public boolean doesTableExist(){
         PreparedStatement prepareStatement = null;
         boolean result = false;

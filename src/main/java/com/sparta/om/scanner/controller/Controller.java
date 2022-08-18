@@ -2,7 +2,6 @@ package com.sparta.om.scanner.controller;
 
 import com.sparta.om.DB.controller.ConnectionManager;
 import com.sparta.om.DB.controller.DBController;
-import com.sparta.om.DB.controller.DBLoader;
 
 import java.sql.Connection;
 import java.util.Scanner;
@@ -18,17 +17,14 @@ public class Controller {
 
         switch(choice) {
             case 1:
-
                 dbController.dropTable();
                 dbController.createTable();
                 System.out.println("Created the Table...");
                 break;
             case 2:
-
                 if(dbController.doesTableExist()) {
                     dbController.insertUsersToTable(filename);
                     System.out.println("Inserted Employees ...");
-
                 }else{
                     System.out.println("Table does not exist");
                 }
