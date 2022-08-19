@@ -4,19 +4,36 @@ import com.sparta.om.DB.model.SQLQueries;
 import com.sparta.om.dao.EmployeeDAO;
 import com.sparta.om.dto.EmployeeDTO;
 import com.sparta.om.dto.util.Utilities;
+import com.sparta.om.logging.CustomFormatter;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static com.sparta.om.dao.EmployeeDAO.corruptedEmployees;
 import static com.sparta.om.dao.EmployeeDAO.duplicatedEmployees;
 
 public class DBController {
-    private final Connection postgresConnection;
+    private static final Logger logger = Logger.getLogger("DB Controller Logger");
 
+    private final Connection postgresConnection;
     private Statement statement;
 
     public DBController(Connection postgresConnection) {
+        try {
+            FileHandler fileHandler = new FileHandler("src/main/resources/DBControllerLogger.log", true);
+            fileHandler.setFormatter(new CustomFormatter());
+            fileHandler.setLevel(Level.ALL);
+            logger.setUseParentHandlers(false);
+            logger.addHandler(fileHandler);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        logger.log(Level.INFO, "Starting Connection...");
         this.postgresConnection = postgresConnection;
         try {
             statement = postgresConnection.createStatement();
@@ -40,6 +57,7 @@ public class DBController {
 
     public void insertUsersToTable(String filename) {
         ArrayList<EmployeeDTO> validatedEmployees = EmployeeDAO.PopulateArray(filename);
+        logger.log(Level.FINE, "Printing general info about the CSV");
         System.out.println("Valid employees count: " + validatedEmployees.size());
         System.out.println("Corrupted employees count: " + corruptedEmployees.size());
         System.out.println("Duplicated employees count: " + duplicatedEmployees.size());
@@ -63,10 +81,12 @@ public class DBController {
                 e.printStackTrace();
             }
         }
+        logger.log(Level.INFO, "Finished inserting into table");
     }
 
     public void dropTable() {
         try {
+            logger.log(Level.FINE, "Dropping table...");
             PreparedStatement preparedStatement = postgresConnection.prepareStatement(SQLQueries.DROP_TABLE);
             preparedStatement.execute();
         } catch (SQLException e) {
@@ -76,6 +96,7 @@ public class DBController {
 
     public void createTable() {
         try {
+            logger.log(Level.FINE, "Creating table...");
             PreparedStatement preparedStatement = postgresConnection.prepareStatement(SQLQueries.CREATE_TABLE);
             preparedStatement.execute();
         } catch (SQLException e) {
@@ -87,7 +108,7 @@ public class DBController {
             PreparedStatement preparedStatement = postgresConnection.prepareStatement(SQLQueries.SELECT_INDIVIDUAL);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-
+            logger.log(Level.FINE, "Printing some info about the queried employee");
             while (resultSet.next()) {
                 System.out.print("ID: " + resultSet.getInt( 1)+ " \n");
                 System.out.print("Name: " + resultSet.getString(2) + " ");
@@ -101,6 +122,7 @@ public class DBController {
     }
 
     public boolean doesTableExist(){
+        logger.log(Level.INFO, "Checking to see if table exists");
         PreparedStatement prepareStatement = null;
         boolean result = false;
         try {
