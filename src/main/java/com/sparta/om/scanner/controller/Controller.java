@@ -34,6 +34,7 @@ public class Controller {
                 break;
             case 4:
                 dbController.dropTable();
+                System.out.println("Table deleted");
                 break;
             default:
                 System.out.println("you did not select a valid option");
