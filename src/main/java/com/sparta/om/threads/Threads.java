@@ -24,16 +24,19 @@ public class Threads implements Runnable{
 
     public static ArrayList<Thread> threads = new ArrayList<>();
 
-    public static int startIndex = 0;
-    public static int endIndex = 0;
+    public static int currentIndex = 0;
 
     @Override
     public void run() {
-        System.out.println("Printing from a thread");
-        updateIndexes(empLargeSplitter(3));
-        System.out.println(empLargeSplitter(3));
-        System.out.println(startIndex + " " + endIndex);
-        insertThread(startIndex, endIndex);
+        double start = System.nanoTime();
+
+        while(!Thread.currentThread().isInterrupted()) {
+            insertThread();
+        }
+        double end = System.nanoTime();
+        double totalTime = (end - start) / 1000000;
+        System.out.println(totalTime);
+
     }
 
     public static void main(String[] args) {
@@ -41,18 +44,14 @@ public class Threads implements Runnable{
         controller.dropTable();
         controller.createTable();
 
-        threadGen(3);
+        threadGen(1000);
         double start = System.nanoTime();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 1000; i++) {
             threads.get(i).start();
         }
-//        while() {
-//
-//        }
-        double end = System.nanoTime();
 
-        double totalTime = (end - start) / 1000000;
-        System.out.println(totalTime);
+
+
     }
 
     public static void threadGen(int numOfThreads) {
@@ -61,36 +60,38 @@ public class Threads implements Runnable{
         }
     }
 
-    public static int empLargeSplitter(int amountOfThreads) {
-//        if (EmployeeDAO.employeesLarge.size() % amountOfThreads == 0) {
-           int employeesSplit = employeesLarge.size() / amountOfThreads;
-           return employeesSplit;
-//        }
-    }
+    public void insertThread() {
+        if(currentIndex >= employeesLarge.size()){
+            Thread.currentThread().interrupt();
 
-    public synchronized static void updateIndexes(int increment) {
-        startIndex = endIndex;
-        endIndex = endIndex + increment;
-    }
+        }else {
 
-    public void insertThread(int startIndex, int endIndex) {
-
-        for (int i = startIndex; i < endIndex; i++) {
-            EmployeeDTO record = employeesLarge.get(i);
-            System.out.println(Thread.currentThread().getName() + " " + i);
+            System.out.println(Thread.currentThread().getName() + " " + currentIndex);
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(SQLQueries.INSERT_INTO_TABLE);
-                preparedStatement.setInt(1, record.getEmplID());
-                preparedStatement.setString(2, record.getNamePrefix());
-                preparedStatement.setString(3, record.getFirstName());
-                preparedStatement.setString(4, record.getMiddleInitial());
-                preparedStatement.setString(5, record.getLastName());
-                preparedStatement.setString(6, record.getGender());
-                preparedStatement.setString(7, record.getEmail());
-                preparedStatement.setDate(8, Utilities.DateConverter(record.getDateOfBirth()));
-                preparedStatement.setDate(9, Utilities.DateConverter(record.getDateOfJoining()));
-                preparedStatement.setInt(10, record.getSalary());
-                preparedStatement.execute();
+
+                for(int i = 0; i <=  4; i++){
+
+                    EmployeeDTO record = employeesLarge.get(currentIndex);
+                    currentIndex++;
+
+                    preparedStatement.setInt(1, record.getEmplID());
+                    preparedStatement.setString(2, record.getNamePrefix());
+                    preparedStatement.setString(3, record.getFirstName());
+                    preparedStatement.setString(4, record.getMiddleInitial());
+                    preparedStatement.setString(5, record.getLastName());
+                    preparedStatement.setString(6, record.getGender());
+                    preparedStatement.setString(7, record.getEmail());
+                    preparedStatement.setDate(8, Utilities.DateConverter(record.getDateOfBirth()));
+                    preparedStatement.setDate(9, Utilities.DateConverter(record.getDateOfJoining()));
+                    preparedStatement.setInt(10, record.getSalary());
+                    preparedStatement.execute();
+
+
+
+                }
+
+
             } catch (SQLException e) {
                 System.out.println(count++);
                 //e.printStackTrace();
