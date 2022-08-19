@@ -26,5 +26,5 @@ public interface SQLQueries {
 
     String CHECK_TABLE = "SELECT EXISTS ( SELECT column_name FROM information_schema.columns WHERE table_name='employees' and column_name='emp_id');";
 
-    StringBuffer INSERT_MULTIPLE = new StringBuffer("INSERT INTO public.employees (emp_id, name_prefix, first_name, middle_initial, last_name, gender, email, date_of_birth, date_of_joining, salary) VALUES ");
+    StringBuffer INSERT_MULTIPLE = new StringBuffer("INSERT INTO public.employees (emp_id, name_prefix, first_name, middle_initial, last_name, gender, email, date_of_birth, date_of_joining, salary) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
 }
