@@ -1,6 +1,6 @@
-package com.sparta.om.DB.controller;
+package com.sparta.om.db.controller;
 
-import com.sparta.om.DB.util.PropertiesLoader;
+import com.sparta.om.db.util.PropertiesLoader;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

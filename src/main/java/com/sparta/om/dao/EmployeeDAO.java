@@ -57,4 +57,17 @@ public class EmployeeDAO {
     public static ArrayList<EmployeeDTO> getDuplicatedEmployees() {
         return duplicatedEmployees;
     }
+
+    public static int getNumberOfDuplicatedEmployees(){
+        return duplicatedEmployees.size();
+    }
+    public static int getNumberOfCorruptedEmployees(){
+        return corruptedEmployees.size();
+    }
+    public static int getNumberOfValidatedEmployees(){
+        return employees.size();
+    }
+
+
+
 }

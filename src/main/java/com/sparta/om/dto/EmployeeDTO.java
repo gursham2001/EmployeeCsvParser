@@ -106,7 +106,7 @@ public class EmployeeDTO {
     }
     public boolean isRecordValid(){
 
-        return isGenderValid() && isDateOfBirthValid() && isDateOfJoiningValid() && isPrefixValid();
+        return isGenderValid() && isDateOfBirthValid() && isDateOfJoiningValid() && isPrefixValid() && isSalaryValid();
     }
 
     @Override

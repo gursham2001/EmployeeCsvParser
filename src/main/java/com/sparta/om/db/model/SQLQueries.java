@@ -1,4 +1,4 @@
-package com.sparta.om.DB.model;
+package com.sparta.om.db.model;
 
 public interface SQLQueries {
     public static final String SELECT_ALL = "SELECT * FROM public.employees";
