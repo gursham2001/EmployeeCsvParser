@@ -1,7 +1,7 @@
 package com.sparta.om.scanner.controller;
 
-import com.sparta.om.DB.controller.ConnectionManager;
-import com.sparta.om.DB.controller.DBController;
+import com.sparta.om.db.controller.ConnectionManager;
+import com.sparta.om.db.controller.DBController;
 
 import java.sql.Connection;
 import java.util.Scanner;

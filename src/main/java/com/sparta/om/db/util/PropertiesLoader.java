@@ -1,4 +1,4 @@
-package com.sparta.om.DB.util;
+package com.sparta.om.db.util;
 
 import java.io.FileReader;
 import java.io.IOException;
