@@ -43,7 +43,7 @@ public class DBController {
         System.out.println("Valid employees count: " + validatedEmployees.size());
         System.out.println("Corrupted employees count: " + corruptedEmployees.size());
         System.out.println("Duplicated employees count: " + duplicatedEmployees.size());
-
+        double start = System.nanoTime();
         for (int i = 0; i < validatedEmployees.size(); i++) {
             EmployeeDTO record = validatedEmployees.get(i);
             try {
@@ -63,6 +63,9 @@ public class DBController {
                 e.printStackTrace();
             }
         }
+        double end = System.nanoTime();
+        double finish = end-start;
+        System.out.println("Time taken in milliseconds: "+(finish/1000000));
     }
 
     public void dropTable() {

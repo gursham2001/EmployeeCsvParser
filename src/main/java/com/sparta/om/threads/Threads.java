@@ -6,19 +6,13 @@ import com.sparta.om.DB.model.SQLQueries;
 import com.sparta.om.dao.EmployeeDAO;
 import com.sparta.om.dto.EmployeeDTO;
 import com.sparta.om.dto.util.Utilities;
-import jdk.jshell.execution.Util;
 
-import javax.print.DocFlavor;
-import javax.sound.midi.Soundbank;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
-import static com.sparta.om.dao.EmployeeDAO.*;
-
-public class Threads implements Runnable{
+public class Threads{
     private static int count = 0;
     static ArrayList<EmployeeDTO> employeesLarge = EmployeeDAO.PopulateArrayLarge("src/main/resources/EmployeeRecordsLarge.csv");
     static Connection connection = ConnectionManager.connectToDB();
@@ -26,83 +20,128 @@ public class Threads implements Runnable{
 
     public static ArrayList<Thread> threads = new ArrayList<>();
 
-    public static int currentIndex = 0;
-
-    @Override
-    public void run() {
-        double start = System.nanoTime();
-
-        while(!Thread.currentThread().isInterrupted()) {
-            insertThread();
-        }
-        double end = System.nanoTime();
-        double totalTime = (end - start) / 1000000;
-        System.out.println(totalTime);
-
-    }
-
     public static void main(String[] args) {
+
+        Thread thread1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (!Thread.currentThread().isInterrupted()) {
+                    insertThread1();
+                }
+            }
+        });
+        Thread thread2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (!Thread.currentThread().isInterrupted()) {
+                    insertThread2();
+                }
+            }
+        });
+        Thread thread3 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (!Thread.currentThread().isInterrupted()) {
+                    insertThread3();
+                }
+            }
+        });
 
         controller.dropTable();
         controller.createTable();
 
-        threadGen(3);
         double start = System.nanoTime();
-        for (int i = 0; i < 3; i++) {
-            threads.get(i).start();
+        thread1.start();
+        thread2.start();
+        thread3.start();
+        while (thread1.isAlive() && thread2.isAlive() && thread3.isAlive()) {
+
         }
-
-
+        double end = System.nanoTime();
+        double totalTime = (end - start) / 1000000000;
+        System.out.println("Total time taken for large array: " + totalTime + " seconds");
 
     }
-
+/*
     public static void threadGen(int numOfThreads) {
         for (int i = 0; i < numOfThreads; i++) {
             threads.add(new Thread(new Threads()));
         }
     }
 
-    public synchronized void insertThread() {
+*/
 
-
-
+    public static void insertThread1() {
             try {
-                for (int i = 0; i <= (employeesLarge.size()-1)/3 ; i++) {
-                    SQLQueries.INSERT_MULTIPLE.append(" ,(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                }
+                PreparedStatement preparedStatement = connection.prepareStatement(String.valueOf(SQLQueries.INSERT_INTO_TABLE));
+                for (int i = 0; i < 21833; i++) {
+                        EmployeeDTO record = employeesLarge.get(i);
 
-                PreparedStatement preparedStatement = connection.prepareStatement(String.valueOf(SQLQueries.INSERT_MULTIPLE));
-                for (int i = 0; i <= (employeesLarge.size()-1)/3; i++) {
-//                    if (currentIndex >= employeesLarge.size()) {
-//                        Thread.currentThread().interrupt();
-//
-//                    } else {
-                        System.out.println(Thread.currentThread().getName() + " " + currentIndex);
-                        EmployeeDTO record = employeesLarge.get(currentIndex);
-                        currentIndex++;
-
-                        preparedStatement.setInt((10 * i) + 1, record.getEmplID());
-                        preparedStatement.setString((10 * i) + 2, record.getNamePrefix());
-                        preparedStatement.setString((10 * i) + 3, record.getFirstName());
-                        preparedStatement.setString((10 * i) + 4, record.getMiddleInitial());
-                        preparedStatement.setString((10 * i) + 5, record.getLastName());
-                        preparedStatement.setString((10 * i) + 6, record.getGender());
-                        preparedStatement.setString((10 * i) + 7, record.getEmail());
-                        preparedStatement.setDate((10 * i) + 8, Utilities.DateConverter(record.getDateOfBirth()));
-                        preparedStatement.setDate((10 * i) + 9, Utilities.DateConverter(record.getDateOfJoining()));
-                        preparedStatement.setInt((10 * i) + 10, record.getSalary());
-
+                        preparedStatement.setInt(1, record.getEmplID());
+                        preparedStatement.setString(2, record.getNamePrefix());
+                        preparedStatement.setString(3, record.getFirstName());
+                        preparedStatement.setString(4, record.getMiddleInitial());
+                        preparedStatement.setString(5, record.getLastName());
+                        preparedStatement.setString(6, record.getGender());
+                        preparedStatement.setString(7, record.getEmail());
+                        preparedStatement.setDate(8, Utilities.DateConverter(record.getDateOfBirth()));
+                        preparedStatement.setDate(9, Utilities.DateConverter(record.getDateOfJoining()));
+                        preparedStatement.setInt(10, record.getSalary());
+                        preparedStatement.addBatch();
                     }
-                preparedStatement.execute();
+                preparedStatement.executeBatch();
                 Thread.currentThread().interrupt();
-
-                //}
-
-
             } catch (SQLException e) {
                 System.out.println(count++);
-                //e.printStackTrace();
             }
         }
 
+    public static void insertThread2() {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(String.valueOf(SQLQueries.INSERT_INTO_TABLE));
+            for (int i = 21833; i < 43666; i++) {
+                EmployeeDTO record = employeesLarge.get(i);
+
+                preparedStatement.setInt(1, record.getEmplID());
+                preparedStatement.setString(2, record.getNamePrefix());
+                preparedStatement.setString(3, record.getFirstName());
+                preparedStatement.setString(4, record.getMiddleInitial());
+                preparedStatement.setString(5, record.getLastName());
+                preparedStatement.setString(6, record.getGender());
+                preparedStatement.setString(7, record.getEmail());
+                preparedStatement.setDate(8, Utilities.DateConverter(record.getDateOfBirth()));
+                preparedStatement.setDate(9, Utilities.DateConverter(record.getDateOfJoining()));
+                preparedStatement.setInt(10, record.getSalary());
+                preparedStatement.addBatch();
+            }
+            preparedStatement.executeBatch();
+            Thread.currentThread().interrupt();
+        } catch (SQLException e) {
+            System.out.println(count++);
+        }
+    }
+    public static void insertThread3() {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(String.valueOf(SQLQueries.INSERT_INTO_TABLE));
+            for (int i = 43666; i < employeesLarge.size(); i++) {
+                EmployeeDTO record = employeesLarge.get(i);
+
+                preparedStatement.setInt(1, record.getEmplID());
+                preparedStatement.setString(2, record.getNamePrefix());
+                preparedStatement.setString(3, record.getFirstName());
+                preparedStatement.setString(4, record.getMiddleInitial());
+                preparedStatement.setString(5, record.getLastName());
+                preparedStatement.setString(6, record.getGender());
+                preparedStatement.setString(7, record.getEmail());
+                preparedStatement.setDate(8, Utilities.DateConverter(record.getDateOfBirth()));
+                preparedStatement.setDate(9, Utilities.DateConverter(record.getDateOfJoining()));
+                preparedStatement.setInt(10, record.getSalary());
+                preparedStatement.addBatch();
+            }
+            preparedStatement.executeBatch();
+            Thread.currentThread().interrupt();
+        } catch (SQLException e) {
+            System.out.println(count++);
+        }
+    }
 }
