@@ -6,6 +6,7 @@ import com.sparta.om.DB.model.SQLQueries;
 import com.sparta.om.dao.EmployeeDAO;
 import com.sparta.om.dto.EmployeeDTO;
 import com.sparta.om.dto.util.Utilities;
+import jdk.jshell.execution.Util;
 
 import javax.sound.midi.Soundbank;
 import java.sql.Connection;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import static com.sparta.om.dao.EmployeeDAO.*;
 
 public class Threads implements Runnable{
-
+    private static int count = 0;
     static ArrayList<EmployeeDTO> employeesLarge = EmployeeDAO.PopulateArrayLarge("src/main/resources/EmployeeRecordsLarge.csv");
     static Connection connection = ConnectionManager.connectToDB();
     static DBController controller = new DBController(connection);
@@ -67,7 +68,7 @@ public class Threads implements Runnable{
 //        }
     }
 
-    public static void updateIndexes(int increment) {
+    public synchronized static void updateIndexes(int increment) {
         startIndex = endIndex;
         endIndex = endIndex + increment;
     }
@@ -76,6 +77,7 @@ public class Threads implements Runnable{
 
         for (int i = startIndex; i < endIndex; i++) {
             EmployeeDTO record = employeesLarge.get(i);
+            System.out.println(Thread.currentThread().getName() + " " + i);
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(SQLQueries.INSERT_INTO_TABLE);
                 preparedStatement.setInt(1, record.getEmplID());
@@ -90,7 +92,8 @@ public class Threads implements Runnable{
                 preparedStatement.setInt(10, record.getSalary());
                 preparedStatement.execute();
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.out.println(count++);
+                //e.printStackTrace();
             }
         }
     }

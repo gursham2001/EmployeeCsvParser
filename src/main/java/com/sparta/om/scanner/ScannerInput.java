@@ -10,7 +10,7 @@ public class ScannerInput {
         int choice = 0;
 
         while (true) {
-            System.out.println("\n \nWelcome to Employee csv Importer");
+            System.out.println("\nWelcome to Employee csv Importer");
             System.out.println("What would you like to do ?");
             System.out.println("1 : Create Table");
             System.out.println("2 : Insert Employees into database");
