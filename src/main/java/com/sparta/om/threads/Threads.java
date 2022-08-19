@@ -8,11 +8,13 @@ import com.sparta.om.dto.EmployeeDTO;
 import com.sparta.om.dto.util.Utilities;
 import jdk.jshell.execution.Util;
 
+import javax.print.DocFlavor;
 import javax.sound.midi.Soundbank;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.sparta.om.dao.EmployeeDAO.*;
 
@@ -68,29 +70,27 @@ public class Threads implements Runnable{
 
             System.out.println(Thread.currentThread().getName() + " " + currentIndex);
             try {
-                PreparedStatement preparedStatement = connection.prepareStatement(SQLQueries.INSERT_INTO_TABLE);
+                for (int i = 0; i <= 4; i++) {
+                    SQLQueries.INSERT_MULTIPLE.append(", (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                }
 
-                for(int i = 0; i <=  4; i++){
-
+                PreparedStatement preparedStatement = connection.prepareStatement(String.valueOf(SQLQueries.INSERT_MULTIPLE));
+                for (int i = 0; i <= 4; i++) {
                     EmployeeDTO record = employeesLarge.get(currentIndex);
                     currentIndex++;
 
-                    preparedStatement.setInt(1, record.getEmplID());
-                    preparedStatement.setString(2, record.getNamePrefix());
-                    preparedStatement.setString(3, record.getFirstName());
-                    preparedStatement.setString(4, record.getMiddleInitial());
-                    preparedStatement.setString(5, record.getLastName());
-                    preparedStatement.setString(6, record.getGender());
-                    preparedStatement.setString(7, record.getEmail());
-                    preparedStatement.setDate(8, Utilities.DateConverter(record.getDateOfBirth()));
-                    preparedStatement.setDate(9, Utilities.DateConverter(record.getDateOfJoining()));
-                    preparedStatement.setInt(10, record.getSalary());
-                    preparedStatement.execute();
-
-
-
+                    preparedStatement.setInt((10 * i) + 1, record.getEmplID());
+                    preparedStatement.setString((10 * i) + 2, record.getNamePrefix());
+                    preparedStatement.setString((10 * i) + 3, record.getFirstName());
+                    preparedStatement.setString((10 * i) + 4, record.getMiddleInitial());
+                    preparedStatement.setString((10 * i) + 5, record.getLastName());
+                    preparedStatement.setString((10 * i) + 6, record.getGender());
+                    preparedStatement.setString((10 * i) + 7, record.getEmail());
+                    preparedStatement.setDate((10 * i) + 8, Utilities.DateConverter(record.getDateOfBirth()));
+                    preparedStatement.setDate((10 * i) + 9, Utilities.DateConverter(record.getDateOfJoining()));
+                    preparedStatement.setInt((10 * i) + 10, record.getSalary());
                 }
-
+                preparedStatement.execute();
 
             } catch (SQLException e) {
                 System.out.println(count++);
@@ -98,5 +98,4 @@ public class Threads implements Runnable{
             }
         }
     }
-
 }
