@@ -39,6 +39,8 @@ public class DBController {
 
     public void insertUsersToTable(String filename) {
         ArrayList<EmployeeDTO> validatedEmployees = EmployeeDAO.PopulateArray(filename);
+        double start = System.nanoTime();
+
         System.out.println("Valid employees count: " + getNumberOfValidatedEmployees());
         System.out.println("Corrupted employees count: " + getNumberOfCorruptedEmployees() );
         System.out.println("Duplicated employees count: " + getNumberOfDuplicatedEmployees());
@@ -62,6 +64,9 @@ public class DBController {
                 e.printStackTrace();
             }
         }
+        double end = System.nanoTime();
+        double finish = end-start;
+        System.out.println("Time taken in milliseconds: "+(finish/1000000));
     }
 
     public void dropTable() {
@@ -115,4 +120,5 @@ public class DBController {
             return false;
         }
     }
+
 }
