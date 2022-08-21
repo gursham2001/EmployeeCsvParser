@@ -46,7 +46,6 @@ public class EmployeeDAO {
         }
         return employees;
     }
-
     public static ArrayList<EmployeeDTO> PopulateArrayLarge(String filename) {
         try {
             var fileReader = new FileReader(filename);
@@ -67,6 +66,7 @@ public class EmployeeDAO {
         return employeesLarge;
     }
 
+
     public static ArrayList<EmployeeDTO> getEmployees() {
         return employees;
     }
@@ -78,4 +78,17 @@ public class EmployeeDAO {
     public static ArrayList<EmployeeDTO> getDuplicatedEmployees() {
         return duplicatedEmployees;
     }
+
+    public static int getNumberOfDuplicatedEmployees(){
+        return duplicatedEmployees.size();
+    }
+    public static int getNumberOfCorruptedEmployees(){
+        return corruptedEmployees.size();
+    }
+    public static int getNumberOfValidatedEmployees(){
+        return employees.size();
+    }
+
+
+
 }

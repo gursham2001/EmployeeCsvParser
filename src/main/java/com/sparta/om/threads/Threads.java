@@ -1,8 +1,8 @@
 package com.sparta.om.threads;
 
-import com.sparta.om.DB.controller.ConnectionManager;
-import com.sparta.om.DB.controller.DBController;
-import com.sparta.om.DB.model.SQLQueries;
+import com.sparta.om.db.controller.ConnectionManager;
+import com.sparta.om.db.controller.DBController;
+import com.sparta.om.db.model.SQLQueries;
 import com.sparta.om.dao.EmployeeDAO;
 import com.sparta.om.dto.EmployeeDTO;
 import com.sparta.om.dto.util.Utilities;
