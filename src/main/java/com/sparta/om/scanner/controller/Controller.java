@@ -12,10 +12,9 @@ public class Controller {
 
     public static void ScannerController(int i){
 
-        int choice = i;
         String filename = "src/main/resources/EmployeeRecords.csv";
 
-        switch(choice) {
+        switch(i) {
             case 1:
                 dbController.dropTable();
                 dbController.createTable();
@@ -45,7 +44,6 @@ public class Controller {
         Scanner myObj = new Scanner(System.in);
         System.out.println("Please enter the employee ID :");
 
-        int choice = myObj.nextInt();
-        return choice;
+        return myObj.nextInt();
     }
 }

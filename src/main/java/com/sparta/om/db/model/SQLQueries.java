@@ -1,7 +1,7 @@
 package com.sparta.om.db.model;
 
 public interface SQLQueries {
-    public static final String SELECT_ALL = "SELECT * FROM public.employees";
+    String SELECT_ALL = "SELECT * FROM public.employees";
 
     String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS public.employees\n" +
             "(\n" +
@@ -25,6 +25,4 @@ public interface SQLQueries {
     String SELECT_INDIVIDUAL = "SELECT * FROM public.employees WHERE emp_id = ?";
 
     String CHECK_TABLE = "SELECT EXISTS ( SELECT column_name FROM information_schema.columns WHERE table_name='employees' and column_name='emp_id');";
-
-    StringBuffer INSERT_MULTIPLE = new StringBuffer("INSERT INTO public.employees (emp_id, name_prefix, first_name, middle_initial, last_name, gender, email, date_of_birth, date_of_joining, salary) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
 }

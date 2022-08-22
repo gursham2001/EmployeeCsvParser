@@ -20,7 +20,6 @@ public class ScannerInput {
             System.out.print("Enter your choice: ");
             choice = myObj.nextInt();
 
-
             if(choice == 5){
                 break;
             } else {
@@ -28,5 +27,4 @@ public class ScannerInput {
             }
         }
     }
-
 }
