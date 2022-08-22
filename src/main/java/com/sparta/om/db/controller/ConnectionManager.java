@@ -1,13 +1,13 @@
-package com.sparta.om.DB.controller;
+package com.sparta.om.db.controller;
 
-import com.sparta.om.DB.util.PropertiesLoader;
+import com.sparta.om.db.util.PropertiesLoader;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionManager {
-    private static Connection postGresConnection;
+    private static Connection postgresConnection;
 
     public static Connection connectToDB() {
         String url = PropertiesLoader.getProperty("url");
@@ -15,16 +15,16 @@ public class ConnectionManager {
         String password = PropertiesLoader.getProperty("password");
 
         try {
-            postGresConnection = DriverManager.getConnection(url, username, password);
+            postgresConnection = DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return postGresConnection;
+        return postgresConnection;
     }
 
     public static void closeConnection() {
         try {
-            postGresConnection.close();
+            postgresConnection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

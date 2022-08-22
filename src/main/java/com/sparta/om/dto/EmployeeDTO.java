@@ -1,9 +1,5 @@
 package com.sparta.om.dto;
 
-//Data Transfer Object - DTO
-// Emp ID, name prefix, First Name, Middle initial, Last Name, Gender, E mail, Date of Birth, Date of Joining, Salary
-//Read as String - Convert getters
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -71,7 +67,6 @@ public class EmployeeDTO {
         return dateOfBirth;
     }
 
-
     public LocalDate getDateOfJoining() {
         return dateOfJoining;
     }
@@ -87,10 +82,7 @@ public class EmployeeDTO {
                 || getNamePrefix().equals("Dr.")
                 || getNamePrefix().equals("Prof.")
                 || getNamePrefix().equals("Drs.")
-                || getNamePrefix().equals("Dr.")
-                || getNamePrefix().equals("Mr.")
-                || getNamePrefix().equals("Ms.")
-                || getNamePrefix().equals("Mr.");
+                || getNamePrefix().equals("Ms.");
     }
 
     public boolean isDateOfBirthValid() {
@@ -108,9 +100,9 @@ public class EmployeeDTO {
     public boolean isGenderValid() {
         return getGender().equals("M") || getGender().equals("F");
     }
-    public boolean isRecordValid(){
 
-        return isGenderValid() && isDateOfBirthValid() && isDateOfJoiningValid() && isPrefixValid();
+    public boolean isRecordValid(){
+        return isGenderValid() && isDateOfBirthValid() && isDateOfJoiningValid() && isPrefixValid() && isSalaryValid();
     }
 
     @Override

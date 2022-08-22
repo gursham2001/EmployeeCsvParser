@@ -11,10 +11,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-//Data Access Object
-//CRUD
 public class EmployeeDAO {
 
+    public static ArrayList<EmployeeDTO> employeesLarge = new ArrayList<>();
     private static ArrayList<EmployeeDTO> employees = new ArrayList<>();
     private static ArrayList<Integer> employeeIDs = new ArrayList<>();
     public static ArrayList<EmployeeDTO> corruptedEmployees = new ArrayList<>();
@@ -45,6 +44,21 @@ public class EmployeeDAO {
         }
         return employees;
     }
+    public static ArrayList<EmployeeDTO> PopulateArrayLarge(String filename) {
+        try {
+            var fileReader = new FileReader(filename);
+            var bufferedReader = new BufferedReader(fileReader);
+            bufferedReader.readLine();
+            for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
+                String[] records = line.split(",");
+                EmployeeDTO employeeDTO = new EmployeeDTO(records);
+                employeesLarge.add(employeeDTO);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return employeesLarge;
+    }
 
     public static ArrayList<EmployeeDTO> getEmployees() {
         return employees;
@@ -56,5 +70,17 @@ public class EmployeeDAO {
 
     public static ArrayList<EmployeeDTO> getDuplicatedEmployees() {
         return duplicatedEmployees;
+    }
+
+    public static int getNumberOfDuplicatedEmployees(){
+        return duplicatedEmployees.size();
+    }
+
+    public static int getNumberOfCorruptedEmployees(){
+        return corruptedEmployees.size();
+    }
+
+    public static int getNumberOfValidatedEmployees(){
+        return employees.size();
     }
 }

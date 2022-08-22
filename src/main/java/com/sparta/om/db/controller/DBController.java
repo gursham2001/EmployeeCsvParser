@@ -1,6 +1,6 @@
-package com.sparta.om.DB.controller;
+package com.sparta.om.db.controller;
 
-import com.sparta.om.DB.model.SQLQueries;
+import com.sparta.om.db.model.SQLQueries;
 import com.sparta.om.dao.EmployeeDAO;
 import com.sparta.om.dto.EmployeeDTO;
 import com.sparta.om.dto.util.Utilities;
@@ -8,7 +8,7 @@ import com.sparta.om.dto.util.Utilities;
 import java.sql.*;
 import java.util.ArrayList;
 
-import static com.sparta.om.dao.EmployeeDAO.corruptedEmployees;
+import static com.sparta.om.dao.EmployeeDAO.*;
 
 public class DBController {
     private final Connection postgresConnection;
@@ -39,6 +39,12 @@ public class DBController {
 
     public void insertUsersToTable(String filename) {
         ArrayList<EmployeeDTO> validatedEmployees = EmployeeDAO.PopulateArray(filename);
+        double start = System.nanoTime();
+
+        System.out.println("Valid employees count: " + getNumberOfValidatedEmployees());
+        System.out.println("Corrupted employees count: " + getNumberOfCorruptedEmployees() );
+        System.out.println("Duplicated employees count: " + getNumberOfDuplicatedEmployees());
+
         for (int i = 0; i < validatedEmployees.size(); i++) {
             EmployeeDTO record = validatedEmployees.get(i);
             try {
@@ -58,6 +64,9 @@ public class DBController {
                 e.printStackTrace();
             }
         }
+        double end = System.nanoTime();
+        double finish = end-start;
+        System.out.println("Time taken in milliseconds: "+(finish/1000000));
     }
 
     public void dropTable() {
@@ -75,6 +84,41 @@ public class DBController {
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void getEmployee(int id){
+        try {
+            PreparedStatement preparedStatement = postgresConnection.prepareStatement(SQLQueries.SELECT_INDIVIDUAL);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                System.out.print("ID: " + resultSet.getInt( 1)+ " \n");
+                System.out.print("Name: " + resultSet.getString(2) + " ");
+                System.out.print(resultSet.getString(3)+ " ");
+                System.out.print(resultSet.getString(4)+ " ");
+                System.out.print(resultSet.getString(5)+ " \n" );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean doesTableExist(){
+        PreparedStatement prepareStatement = null;
+        boolean result = false;
+        try {
+            prepareStatement = postgresConnection.prepareStatement(SQLQueries.CHECK_TABLE);
+
+            ResultSet resultSet = prepareStatement.executeQuery();
+            while(resultSet.next()) {
+               result = resultSet.getBoolean(1);
+            }
+           return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }
