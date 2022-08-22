@@ -17,4 +17,5 @@ This contains our methods such as:
 
 Requirements
 Alter the db.properties and make changes to point to your data 
+</n>
 Change  : URL , USERNAME, PASSWORD.
