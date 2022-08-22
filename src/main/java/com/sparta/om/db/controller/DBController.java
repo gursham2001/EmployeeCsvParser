@@ -86,6 +86,7 @@ public class DBController {
             e.printStackTrace();
         }
     }
+
     public void getEmployee(int id){
         try {
             PreparedStatement preparedStatement = postgresConnection.prepareStatement(SQLQueries.SELECT_INDIVIDUAL);
@@ -120,5 +121,4 @@ public class DBController {
             return false;
         }
     }
-
 }

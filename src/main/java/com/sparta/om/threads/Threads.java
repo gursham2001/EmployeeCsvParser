@@ -18,8 +18,6 @@ public class Threads{
     static Connection connection = ConnectionManager.connectToDB();
     static DBController controller = new DBController(connection);
 
-    public static ArrayList<Thread> threads = new ArrayList<>();
-
     public static void main(String[] args) {
 
         Thread thread1 = new Thread(new Runnable() {
@@ -54,14 +52,15 @@ public class Threads{
         thread1.start();
         thread2.start();
         thread3.start();
-        while (thread1.isAlive() && thread2.isAlive() && thread3.isAlive()) {
 
-        }
+        while (thread1.isAlive() && thread2.isAlive() && thread3.isAlive()) {}
+
         double end = System.nanoTime();
         double totalTime = (end - start) / 1000000000;
         System.out.println("Total time taken for large array: " + totalTime + " seconds");
 
     }
+
 /*
     public static void threadGen(int numOfThreads) {
         for (int i = 0; i < numOfThreads; i++) {

@@ -11,8 +11,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-//Data Access Object
-//CRUD
 public class EmployeeDAO {
 
     public static ArrayList<EmployeeDTO> employeesLarge = new ArrayList<>();
@@ -62,11 +60,6 @@ public class EmployeeDAO {
         return employeesLarge;
     }
 
-    public static ArrayList<EmployeeDTO> getEmployeesLarge() {
-        return employeesLarge;
-    }
-
-
     public static ArrayList<EmployeeDTO> getEmployees() {
         return employees;
     }
@@ -82,13 +75,12 @@ public class EmployeeDAO {
     public static int getNumberOfDuplicatedEmployees(){
         return duplicatedEmployees.size();
     }
+
     public static int getNumberOfCorruptedEmployees(){
         return corruptedEmployees.size();
     }
+
     public static int getNumberOfValidatedEmployees(){
         return employees.size();
     }
-
-
-
 }
