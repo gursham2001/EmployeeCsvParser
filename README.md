@@ -15,6 +15,6 @@ This contains our methods such as:
 - Get corrupted employees
 - Get duplicated employees
 
-Requirements
+### Requirements
 Alter the db.properties and make changes to point to your data 
 Change  : URL , USERNAME, PASSWORD.
