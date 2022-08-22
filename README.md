@@ -6,7 +6,7 @@
 To be able to read data from a csv file and populate objects to a collection, we also want to effciently write data from
 objects to relational databases using JDBC and also put OOP, solid and design patterns into practice along with logging and testing
 
-##### EmployeeDAO
+### EmployeeDAO
 This contains our methods such as:
 
 - Populating an array
